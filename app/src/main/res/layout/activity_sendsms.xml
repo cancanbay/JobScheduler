@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:text="SEND SMS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="164dp"
+        android:id="@+id/textView"
+        android:textSize="24sp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/etDuration"
+        android:layout_alignRight="@+id/etDuration"
+        android:layout_alignEnd="@+id/etDuration"
+        android:layout_marginTop="36dp"
+        android:id="@+id/etPhone"
+        android:hint="GSM NUMBER" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPhone"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:id="@+id/radioGroup2">
+
+        <RadioButton
+            android:text="ANY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioAny"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="WIFI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioWifi"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/chkPlug"
+        android:text="Requires Device Plugged In"
+        android:layout_below="@+id/radioGroup2"
+        android:layout_alignLeft="@+id/etPhone"
+        android:layout_alignStart="@+id/etPhone" />
+
+    <Button
+        android:text="SCHEDULE JOB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chkPlug"
+        android:layout_alignLeft="@+id/radioGroup2"
+        android:layout_alignStart="@+id/radioGroup2"
+        android:id="@+id/btnSchedule" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:layout_marginLeft="59dp"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/etDuration"
+        android:textSize="18sp"
+        android:hint="Work Duration"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
