@@ -34,7 +34,7 @@ public class MyJobServiceClass extends JobService {
             if(isWaited){
                 Toast.makeText(getApplicationContext(), "ON START JOB WITH ID " + params.getJobId(), Toast.LENGTH_LONG).show();
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(SendSmsActivity.etPhone.getText().toString(), null, "ÇALIŞMIYOR SANMIŞTIN AMA ÇALIŞIYOR GERİZEKALI APTAL!!!", null, null);
+                smsManager.sendTextMessage(SendSmsActivity.etPhone.getText().toString(), null, "Hello World!", null, null);
                 isWaited = false;
             }
             }
@@ -74,7 +74,7 @@ public class MyJobServiceClass extends JobService {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if(isFirst) {
-                        Toast.makeText(getApplicationContext(), "Time Remaining :" + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "-This toast is not synchronized with 1 second- Time Remaining :" + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -95,7 +95,7 @@ public class MyJobServiceClass extends JobService {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if(isFirst) {
-                        Toast.makeText(getApplicationContext(), "Time Remaining :" + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "-This toast is not synchronized with 1 second- Time Remaining :" + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
                     }
                 }
 

@@ -58,7 +58,7 @@ public class ReminderActivity extends AppCompatActivity {
                 .build();
         int result = jobScheduler.schedule(jobInfo);
         if(result == JobScheduler.RESULT_SUCCESS){
-            Toast.makeText(getApplicationContext(),"Job will be scheduled with network type of "+networkType+" required charging type with "+requiresCharging+" and idle mode with" +requiresIdle,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Job will be scheduled with network type of "+networkType+" required charging type with "+requiresCharging+" and idle mode with " +requiresIdle,Toast.LENGTH_LONG).show();
         }
 
     }
