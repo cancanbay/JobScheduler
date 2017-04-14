@@ -21,32 +21,44 @@ import android.widget.Toast;
  */
 
 public class MyJobServiceClass extends JobService {
-
+    public boolean isWaited = false;
+    JobParameters paramsCopy;
+    public boolean isFirst = true;
 
     @Override
     public boolean onStartJob(JobParameters params) {
 
-        if(params.getJobId() ==1) {
-            Toast.makeText(getApplicationContext(), "ON START JOB WITH ID "+params.getJobId(), Toast.LENGTH_LONG).show();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(SendSmsActivity.etPhone.getText().toString(), null, "Hello World!", null, null);
-        }
-        else if (params.getJobId() == 2){
-            Toast.makeText(getApplicationContext(), "ON START JOB WITH ID "+params.getJobId(), Toast.LENGTH_LONG).show();
-            NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
-            notification.setSmallIcon(R.drawable.notification);
-            notification.setContentTitle("Click Me!");
-            notification.setContentText("Hello from Can Canbay !");
-            Intent notificationIntent = new Intent(this, ReminderActivity.class);
-            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-            notification.setContentIntent(contentIntent);
-            // Add as notification
-            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.notify(0, notification.build());
+        this.paramsCopy = params;
+        if(params.getJobId() == 1) {
+                waitSec();
+            if(isWaited){
+                Toast.makeText(getApplicationContext(), "ON START JOB WITH ID " + params.getJobId(), Toast.LENGTH_LONG).show();
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(SendSmsActivity.etPhone.getText().toString(), null, "ÇALIŞMIYOR SANMIŞTIN AMA ÇALIŞIYOR GERİZEKALI APTAL!!!", null, null);
+                isWaited = false;
+            }
+            }
+
+
+        else if (params.getJobId() == 2 ) {
+            waitSec();
+            if (isWaited) {
+                Toast.makeText(getApplicationContext(), "ON START JOB WITH ID " + params.getJobId(), Toast.LENGTH_LONG).show();
+                NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+                notification.setSmallIcon(R.drawable.notification);
+                notification.setContentTitle("Click Me!");
+                notification.setContentText("Hello from Can Canbay !");
+                Intent notificationIntent = new Intent(this, MainActivity.class);
+                PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(contentIntent);
+                NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                manager.notify(0, notification.build());
+                isWaited = false;
+            }
         }
         jobFinished(params, false);
-        return true;
+        return false;
     }
 
     @Override
@@ -54,6 +66,51 @@ public class MyJobServiceClass extends JobService {
     {
         Toast.makeText(getApplicationContext(),"ON STOP JOB",Toast.LENGTH_LONG).show();
         return false;
+    }
+
+    private void waitSec(){
+        if(paramsCopy.getJobId() ==1) {
+            CountDownTimer countDownTimer = new CountDownTimer(SendSmsActivity.workDuration * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    if(isFirst) {
+                        Toast.makeText(getApplicationContext(), "Time Remaining :" + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    if (isFirst) {
+                        Toast.makeText(getApplicationContext(), "Time is up!", Toast.LENGTH_SHORT).show();
+                        isWaited = true;
+                        isFirst = false;
+                        onStartJob(paramsCopy);
+                    }
+
+                }
+            }.start();
+        }
+        else if (paramsCopy.getJobId() ==2){
+            CountDownTimer countDownTimer = new CountDownTimer(ReminderActivity.workDuration * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    if(isFirst) {
+                        Toast.makeText(getApplicationContext(), "Time Remaining :" + millisUntilFinished / 1000, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    if (isFirst) {
+                        Toast.makeText(getApplicationContext(), "Time is up!", Toast.LENGTH_SHORT).show();
+                        isWaited = true;
+                        isFirst = false;
+                        onStartJob(paramsCopy);
+                    }
+
+                }
+            }.start();
+        }
     }
 
 }

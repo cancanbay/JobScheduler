@@ -27,6 +27,7 @@ public class ReminderActivity extends AppCompatActivity {
     boolean requiresCharging = false;
     boolean requiresIdle = false;
     int networkType;
+    static int workDuration;
     CheckBox chkPlug,chkIdle;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class ReminderActivity extends AppCompatActivity {
         radioWifi = (RadioButton) findViewById(R.id.radioWifi);
         chkPlug = (CheckBox) findViewById(R.id.chkPlug);
         chkIdle = (CheckBox) findViewById(R.id.chkIdle);
+
         btnSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +76,12 @@ public class ReminderActivity extends AppCompatActivity {
         }
         if(chkIdle.isChecked()){
             requiresIdle = true;
+        }
+        try {
+            workDuration = Integer.parseInt(etDuration.getText().toString());
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+            workDuration = 0;
         }
 
     }

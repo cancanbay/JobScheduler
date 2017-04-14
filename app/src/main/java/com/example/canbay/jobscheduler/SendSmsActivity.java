@@ -76,18 +76,18 @@ public class SendSmsActivity extends AppCompatActivity {
         }
         phoneNumber = etPhone.getText().toString();
     }
-    private void ScheduleJob(){
-        jobScheduler  = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+    private void ScheduleJob() {
+        jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobInfo = new JobInfo.Builder(1, new ComponentName(this, MyJobServiceClass.class))
                 .setRequiredNetworkType(networkType)
                 .setRequiresCharging(requiresCharging)
                 .build();
         int result = jobScheduler.schedule(jobInfo);
-        if(result == JobScheduler.RESULT_SUCCESS){
-            Toast.makeText(getApplicationContext(),"Job will be scheduled with network type of "+networkType+" required charging type with "+requiresCharging,Toast.LENGTH_LONG).show();
+        if (result == JobScheduler.RESULT_SUCCESS) {
+            Toast.makeText(getApplicationContext(), "Job will be scheduled with network type of " + networkType + " required charging type with " + requiresCharging, Toast.LENGTH_LONG).show();
         }
-
     }
+
 
     @Override
     protected void onPause() {
